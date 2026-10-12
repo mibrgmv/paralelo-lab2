@@ -1,0 +1,31 @@
+services:
+  spark-master:
+    image: spark:3.5.9-scala2.12-java17-ubuntu
+    container_name: spark-master
+    hostname: spark-master
+    command: /opt/spark/bin/spark-class org.apache.spark.deploy.master.Master --host spark-master
+    environment:
+      SPARK_PUBLIC_DNS: localhost
+    ports:
+      - "8080:8080"
+      - "7077:7077"
+    volumes:
+      - ./target:/opt/spark-apps
+      - ./data:/opt/spark-data
+      - ./reports:/opt/spark-reports
+
+  spark-worker:
+    image: spark:3.5.9-scala2.12-java17-ubuntu
+    container_name: spark-worker
+    hostname: spark-worker
+    command: /opt/spark/bin/spark-class org.apache.spark.deploy.worker.Worker spark://spark-master:7077
+    environment:
+      SPARK_WORKER_CORES: 2
+      SPARK_WORKER_MEMORY: 1g
+      SPARK_PUBLIC_DNS: localhost
+    ports:
+      - "8081:8081"
+    volumes:
+      - ./data:/opt/spark-data
+    depends_on:
+      - spark-master

@@ -1,0 +1,560 @@
+{
+  "source" : "/opt/spark-data/data.csv",
+  "generatedAt" : "2026-10-12T16:31:18.192585875Z",
+  "stats" : {
+    "rows" : 541909,
+    "invoices" : 25900,
+    "stockCodes" : 4070,
+    "customers" : 4372,
+    "countries" : 38,
+    "invoiceDateMin" : "2010-12-01T08:26",
+    "invoiceDateMax" : "2011-12-09T12:50",
+    "quantityMin" : -80995,
+    "quantityMax" : 80995,
+    "unitPriceMin" : -11062.06,
+    "unitPriceMax" : 38970.0
+  },
+  "checks" : [ {
+    "group" : "structure",
+    "name" : "Row.malformed",
+    "description" : "Строка с неверным числом полей",
+    "count" : 0,
+    "total" : 541909,
+    "sharePct" : 0.0,
+    "examples" : [ ]
+  }, {
+    "group" : "completeness",
+    "name" : "InvoiceNo.missing",
+    "description" : "Пустой InvoiceNo",
+    "count" : 0,
+    "total" : 541909,
+    "sharePct" : 0.0,
+    "examples" : [ ]
+  }, {
+    "group" : "completeness",
+    "name" : "StockCode.missing",
+    "description" : "Пустой StockCode",
+    "count" : 0,
+    "total" : 541909,
+    "sharePct" : 0.0,
+    "examples" : [ ]
+  }, {
+    "group" : "completeness",
+    "name" : "Description.missing",
+    "description" : "Пустой Description",
+    "count" : 1454,
+    "total" : 541909,
+    "sharePct" : 0.27,
+    "examples" : [ {
+      "InvoiceNo" : "536414",
+      "StockCode" : "22139",
+      "Description" : null,
+      "Quantity" : "56",
+      "InvoiceDate" : "12/1/2010 11:52",
+      "UnitPrice" : "0",
+      "CustomerID" : null,
+      "Country" : "United Kingdom"
+    }, {
+      "InvoiceNo" : "536545",
+      "StockCode" : "21134",
+      "Description" : null,
+      "Quantity" : "1",
+      "InvoiceDate" : "12/1/2010 14:32",
+      "UnitPrice" : "0",
+      "CustomerID" : null,
+      "Country" : "United Kingdom"
+    }, {
+      "InvoiceNo" : "536546",
+      "StockCode" : "22145",
+      "Description" : null,
+      "Quantity" : "1",
+      "InvoiceDate" : "12/1/2010 14:33",
+      "UnitPrice" : "0",
+      "CustomerID" : null,
+      "Country" : "United Kingdom"
+    } ]
+  }, {
+    "group" : "completeness",
+    "name" : "Quantity.missing",
+    "description" : "Пустой Quantity",
+    "count" : 0,
+    "total" : 541909,
+    "sharePct" : 0.0,
+    "examples" : [ ]
+  }, {
+    "group" : "completeness",
+    "name" : "InvoiceDate.missing",
+    "description" : "Пустой InvoiceDate",
+    "count" : 0,
+    "total" : 541909,
+    "sharePct" : 0.0,
+    "examples" : [ ]
+  }, {
+    "group" : "completeness",
+    "name" : "UnitPrice.missing",
+    "description" : "Пустой UnitPrice",
+    "count" : 0,
+    "total" : 541909,
+    "sharePct" : 0.0,
+    "examples" : [ ]
+  }, {
+    "group" : "completeness",
+    "name" : "CustomerID.missing",
+    "description" : "Пустой CustomerID",
+    "count" : 135080,
+    "total" : 541909,
+    "sharePct" : 24.93,
+    "examples" : [ {
+      "InvoiceNo" : "536414",
+      "StockCode" : "22139",
+      "Description" : null,
+      "Quantity" : "56",
+      "InvoiceDate" : "12/1/2010 11:52",
+      "UnitPrice" : "0",
+      "CustomerID" : null,
+      "Country" : "United Kingdom"
+    }, {
+      "InvoiceNo" : "536544",
+      "StockCode" : "21773",
+      "Description" : "DECORATIVE ROSE BATHROOM BOTTLE",
+      "Quantity" : "1",
+      "InvoiceDate" : "12/1/2010 14:32",
+      "UnitPrice" : "2.51",
+      "CustomerID" : null,
+      "Country" : "United Kingdom"
+    }, {
+      "InvoiceNo" : "536544",
+      "StockCode" : "21774",
+      "Description" : "DECORATIVE CATS BATHROOM BOTTLE",
+      "Quantity" : "2",
+      "InvoiceDate" : "12/1/2010 14:32",
+      "UnitPrice" : "2.51",
+      "CustomerID" : null,
+      "Country" : "United Kingdom"
+    } ]
+  }, {
+    "group" : "completeness",
+    "name" : "Country.missing",
+    "description" : "Пустой Country",
+    "count" : 0,
+    "total" : 541909,
+    "sharePct" : 0.0,
+    "examples" : [ ]
+  }, {
+    "group" : "format",
+    "name" : "InvoiceNo.format",
+    "description" : "InvoiceNo не вида [C|A] + 6 цифр",
+    "count" : 0,
+    "total" : 541909,
+    "sharePct" : 0.0,
+    "examples" : [ ]
+  }, {
+    "group" : "format",
+    "name" : "Quantity.format",
+    "description" : "Quantity не целое число",
+    "count" : 0,
+    "total" : 541909,
+    "sharePct" : 0.0,
+    "examples" : [ ]
+  }, {
+    "group" : "format",
+    "name" : "UnitPrice.format",
+    "description" : "UnitPrice не число",
+    "count" : 0,
+    "total" : 541909,
+    "sharePct" : 0.0,
+    "examples" : [ ]
+  }, {
+    "group" : "format",
+    "name" : "InvoiceDate.format",
+    "description" : "InvoiceDate не разбирается как M/d/yyyy H:mm",
+    "count" : 0,
+    "total" : 541909,
+    "sharePct" : 0.0,
+    "examples" : [ ]
+  }, {
+    "group" : "format",
+    "name" : "CustomerID.format",
+    "description" : "CustomerID не целое число",
+    "count" : 0,
+    "total" : 541909,
+    "sharePct" : 0.0,
+    "examples" : [ ]
+  }, {
+    "group" : "format",
+    "name" : "Description.untrimmed",
+    "description" : "Пробелы в начале или конце Description",
+    "count" : 113452,
+    "total" : 541909,
+    "sharePct" : 20.94,
+    "examples" : [ {
+      "InvoiceNo" : "536367",
+      "StockCode" : "22745",
+      "Description" : "POPPY'S PLAYHOUSE BEDROOM ",
+      "Quantity" : "6",
+      "InvoiceDate" : "12/1/2010 8:34",
+      "UnitPrice" : "2.1",
+      "CustomerID" : "13047",
+      "Country" : "United Kingdom"
+    }, {
+      "InvoiceNo" : "536367",
+      "StockCode" : "22310",
+      "Description" : "IVORY KNITTED MUG COSY ",
+      "Quantity" : "6",
+      "InvoiceDate" : "12/1/2010 8:34",
+      "UnitPrice" : "1.65",
+      "CustomerID" : "13047",
+      "Country" : "United Kingdom"
+    }, {
+      "InvoiceNo" : "536367",
+      "StockCode" : "22623",
+      "Description" : "BOX OF VINTAGE JIGSAW BLOCKS ",
+      "Quantity" : "3",
+      "InvoiceDate" : "12/1/2010 8:34",
+      "UnitPrice" : "4.95",
+      "CustomerID" : "13047",
+      "Country" : "United Kingdom"
+    } ]
+  }, {
+    "group" : "format",
+    "name" : "Description.non_ascii",
+    "description" : "Не-ASCII символы в Description (£), файл в ISO-8859-1",
+    "count" : 32,
+    "total" : 541909,
+    "sharePct" : 0.01,
+    "examples" : [ {
+      "InvoiceNo" : "539492",
+      "StockCode" : "gift_0001_40",
+      "Description" : "Dotcomgiftshop Gift Voucher £40.00",
+      "Quantity" : "1",
+      "InvoiceDate" : "12/20/2010 10:14",
+      "UnitPrice" : "34.04",
+      "CustomerID" : null,
+      "Country" : "United Kingdom"
+    }, {
+      "InvoiceNo" : "539958",
+      "StockCode" : "gift_0001_50",
+      "Description" : "Dotcomgiftshop Gift Voucher £50.00",
+      "Quantity" : "1",
+      "InvoiceDate" : "12/23/2010 13:26",
+      "UnitPrice" : "42.55",
+      "CustomerID" : null,
+      "Country" : "United Kingdom"
+    }, {
+      "InvoiceNo" : "540238",
+      "StockCode" : "gift_0001_30",
+      "Description" : "Dotcomgiftshop Gift Voucher £30.00",
+      "Quantity" : "1",
+      "InvoiceDate" : "1/5/2011 14:44",
+      "UnitPrice" : "25.53",
+      "CustomerID" : null,
+      "Country" : "United Kingdom"
+    } ]
+  }, {
+    "group" : "rules",
+    "name" : "InvoiceNo.cancelled",
+    "description" : "Отмена заказа (InvoiceNo начинается с C)",
+    "count" : 9288,
+    "total" : 541909,
+    "sharePct" : 1.71,
+    "examples" : [ {
+      "InvoiceNo" : "C536379",
+      "StockCode" : "D",
+      "Description" : "Discount",
+      "Quantity" : "-1",
+      "InvoiceDate" : "12/1/2010 9:41",
+      "UnitPrice" : "27.5",
+      "CustomerID" : "14527",
+      "Country" : "United Kingdom"
+    }, {
+      "InvoiceNo" : "C536383",
+      "StockCode" : "35004C",
+      "Description" : "SET OF 3 COLOURED  FLYING DUCKS",
+      "Quantity" : "-1",
+      "InvoiceDate" : "12/1/2010 9:49",
+      "UnitPrice" : "4.65",
+      "CustomerID" : "15311",
+      "Country" : "United Kingdom"
+    }, {
+      "InvoiceNo" : "C536391",
+      "StockCode" : "22556",
+      "Description" : "PLASTERS IN TIN CIRCUS PARADE ",
+      "Quantity" : "-12",
+      "InvoiceDate" : "12/1/2010 10:24",
+      "UnitPrice" : "1.65",
+      "CustomerID" : "17548",
+      "Country" : "United Kingdom"
+    } ]
+  }, {
+    "group" : "rules",
+    "name" : "InvoiceNo.adjustment",
+    "description" : "Корректировка долга (InvoiceNo начинается с A)",
+    "count" : 3,
+    "total" : 541909,
+    "sharePct" : 0.0,
+    "examples" : [ {
+      "InvoiceNo" : "A563185",
+      "StockCode" : "B",
+      "Description" : "Adjust bad debt",
+      "Quantity" : "1",
+      "InvoiceDate" : "8/12/2011 14:50",
+      "UnitPrice" : "11062.06",
+      "CustomerID" : null,
+      "Country" : "United Kingdom"
+    }, {
+      "InvoiceNo" : "A563186",
+      "StockCode" : "B",
+      "Description" : "Adjust bad debt",
+      "Quantity" : "1",
+      "InvoiceDate" : "8/12/2011 14:51",
+      "UnitPrice" : "-11062.06",
+      "CustomerID" : null,
+      "Country" : "United Kingdom"
+    }, {
+      "InvoiceNo" : "A563187",
+      "StockCode" : "B",
+      "Description" : "Adjust bad debt",
+      "Quantity" : "1",
+      "InvoiceDate" : "8/12/2011 14:52",
+      "UnitPrice" : "-11062.06",
+      "CustomerID" : null,
+      "Country" : "United Kingdom"
+    } ]
+  }, {
+    "group" : "rules",
+    "name" : "Quantity.non_positive",
+    "description" : "Quantity <= 0 вне отмен",
+    "count" : 1336,
+    "total" : 541909,
+    "sharePct" : 0.25,
+    "examples" : [ {
+      "InvoiceNo" : "536589",
+      "StockCode" : "21777",
+      "Description" : null,
+      "Quantity" : "-10",
+      "InvoiceDate" : "12/1/2010 16:50",
+      "UnitPrice" : "0",
+      "CustomerID" : null,
+      "Country" : "United Kingdom"
+    }, {
+      "InvoiceNo" : "536764",
+      "StockCode" : "84952C",
+      "Description" : null,
+      "Quantity" : "-38",
+      "InvoiceDate" : "12/2/2010 14:42",
+      "UnitPrice" : "0",
+      "CustomerID" : null,
+      "Country" : "United Kingdom"
+    }, {
+      "InvoiceNo" : "536996",
+      "StockCode" : "22712",
+      "Description" : null,
+      "Quantity" : "-20",
+      "InvoiceDate" : "12/3/2010 15:30",
+      "UnitPrice" : "0",
+      "CustomerID" : null,
+      "Country" : "United Kingdom"
+    } ]
+  }, {
+    "group" : "rules",
+    "name" : "UnitPrice.zero",
+    "description" : "UnitPrice = 0",
+    "count" : 2515,
+    "total" : 541909,
+    "sharePct" : 0.46,
+    "examples" : [ {
+      "InvoiceNo" : "536414",
+      "StockCode" : "22139",
+      "Description" : null,
+      "Quantity" : "56",
+      "InvoiceDate" : "12/1/2010 11:52",
+      "UnitPrice" : "0",
+      "CustomerID" : null,
+      "Country" : "United Kingdom"
+    }, {
+      "InvoiceNo" : "536545",
+      "StockCode" : "21134",
+      "Description" : null,
+      "Quantity" : "1",
+      "InvoiceDate" : "12/1/2010 14:32",
+      "UnitPrice" : "0",
+      "CustomerID" : null,
+      "Country" : "United Kingdom"
+    }, {
+      "InvoiceNo" : "536546",
+      "StockCode" : "22145",
+      "Description" : null,
+      "Quantity" : "1",
+      "InvoiceDate" : "12/1/2010 14:33",
+      "UnitPrice" : "0",
+      "CustomerID" : null,
+      "Country" : "United Kingdom"
+    } ]
+  }, {
+    "group" : "rules",
+    "name" : "UnitPrice.negative",
+    "description" : "UnitPrice < 0",
+    "count" : 2,
+    "total" : 541909,
+    "sharePct" : 0.0,
+    "examples" : [ {
+      "InvoiceNo" : "A563186",
+      "StockCode" : "B",
+      "Description" : "Adjust bad debt",
+      "Quantity" : "1",
+      "InvoiceDate" : "8/12/2011 14:51",
+      "UnitPrice" : "-11062.06",
+      "CustomerID" : null,
+      "Country" : "United Kingdom"
+    }, {
+      "InvoiceNo" : "A563187",
+      "StockCode" : "B",
+      "Description" : "Adjust bad debt",
+      "Quantity" : "1",
+      "InvoiceDate" : "8/12/2011 14:52",
+      "UnitPrice" : "-11062.06",
+      "CustomerID" : null,
+      "Country" : "United Kingdom"
+    } ]
+  }, {
+    "group" : "rules",
+    "name" : "StockCode.non_standard",
+    "description" : "StockCode не вида 5 цифр + буквы (POST, M, DOT, gift_*, ...)",
+    "count" : 2995,
+    "total" : 541909,
+    "sharePct" : 0.55,
+    "examples" : [ {
+      "InvoiceNo" : "536370",
+      "StockCode" : "POST",
+      "Description" : "POSTAGE",
+      "Quantity" : "3",
+      "InvoiceDate" : "12/1/2010 8:45",
+      "UnitPrice" : "18",
+      "CustomerID" : "12583",
+      "Country" : "France"
+    }, {
+      "InvoiceNo" : "C536379",
+      "StockCode" : "D",
+      "Description" : "Discount",
+      "Quantity" : "-1",
+      "InvoiceDate" : "12/1/2010 9:41",
+      "UnitPrice" : "27.5",
+      "CustomerID" : "14527",
+      "Country" : "United Kingdom"
+    }, {
+      "InvoiceNo" : "536403",
+      "StockCode" : "POST",
+      "Description" : "POSTAGE",
+      "Quantity" : "1",
+      "InvoiceDate" : "12/1/2010 11:27",
+      "UnitPrice" : "15",
+      "CustomerID" : "12791",
+      "Country" : "Netherlands"
+    } ]
+  }, {
+    "group" : "uniqueness",
+    "name" : "Row.duplicate",
+    "description" : "Лишние копии полностью совпадающих строк",
+    "count" : 5268,
+    "total" : 541909,
+    "sharePct" : 0.97,
+    "examples" : [ {
+      "InvoiceNo" : "542360",
+      "StockCode" : "22766",
+      "Description" : "PHOTO FRAME CORNICE",
+      "Quantity" : "4",
+      "InvoiceDate" : "1/27/2011 12:40",
+      "UnitPrice" : "2.95",
+      "CustomerID" : "14701",
+      "Country" : "United Kingdom",
+      "count" : 2
+    }, {
+      "InvoiceNo" : "542886",
+      "StockCode" : "21383",
+      "Description" : "PACK OF 12 STICKY BUNNIES",
+      "Quantity" : "1",
+      "InvoiceDate" : "2/1/2011 13:09",
+      "UnitPrice" : "0.65",
+      "CustomerID" : "16515",
+      "Country" : "United Kingdom",
+      "count" : 2
+    }, {
+      "InvoiceNo" : "546107",
+      "StockCode" : "20726",
+      "Description" : "LUNCH BAG WOODLAND",
+      "Quantity" : "1",
+      "InvoiceDate" : "3/9/2011 12:33",
+      "UnitPrice" : "1.65",
+      "CustomerID" : "17238",
+      "Country" : "United Kingdom",
+      "count" : 2
+    } ]
+  }, {
+    "group" : "consistency",
+    "name" : "InvoiceNo.many_dates",
+    "description" : "У заказа несколько разных InvoiceDate",
+    "count" : 43,
+    "total" : 25900,
+    "sharePct" : 0.17,
+    "examples" : [ {
+      "InvoiceNo" : "550641",
+      "values" : [ "4/19/2011 15:53", "4/19/2011 15:54" ]
+    }, {
+      "InvoiceNo" : "545713",
+      "values" : [ "3/7/2011 10:11", "3/7/2011 10:12" ]
+    }, {
+      "InvoiceNo" : "578548",
+      "values" : [ "11/24/2011 15:02", "11/24/2011 15:03" ]
+    } ]
+  }, {
+    "group" : "consistency",
+    "name" : "InvoiceNo.many_customers",
+    "description" : "У заказа несколько разных CustomerID",
+    "count" : 0,
+    "total" : 25900,
+    "sharePct" : 0.0,
+    "examples" : [ ]
+  }, {
+    "group" : "consistency",
+    "name" : "InvoiceNo.many_countries",
+    "description" : "У заказа несколько разных Country",
+    "count" : 0,
+    "total" : 25900,
+    "sharePct" : 0.0,
+    "examples" : [ ]
+  }, {
+    "group" : "consistency",
+    "name" : "StockCode.many_descriptions",
+    "description" : "У товара несколько разных Description (без учёта пробелов по краям)",
+    "count" : 647,
+    "total" : 4070,
+    "sharePct" : 15.9,
+    "examples" : [ {
+      "StockCode" : "22121",
+      "values" : [ "?", "NOEL WOODEN BLOCK LETTERS", "check", "had been put aside" ]
+    }, {
+      "StockCode" : "22130",
+      "values" : [ "PARTY CONE CHRISTMAS DECORATION", "sold as set on dotcom" ]
+    }, {
+      "StockCode" : "23113",
+      "values" : [ "Damaged", "PANTRY CHOPPING BOARD" ]
+    } ]
+  }, {
+    "group" : "consistency",
+    "name" : "StockCode.case_variants",
+    "description" : "StockCode встречается в разном регистре (85123A и 85123a)",
+    "count" : 112,
+    "total" : 3958,
+    "sharePct" : 2.83,
+    "examples" : [ {
+      "StockCode" : "85036A",
+      "values" : [ "85036A", "85036a" ]
+    }, {
+      "StockCode" : "90183C",
+      "values" : [ "90183C", "90183c" ]
+    }, {
+      "StockCode" : "72351A",
+      "values" : [ "72351A", "72351a" ]
+    } ]
+  } ]
+}
