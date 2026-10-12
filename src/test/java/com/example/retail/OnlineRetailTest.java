@@ -132,11 +132,90 @@ class OnlineRetailTest {
         sales.unpersist();
     }
 
+    @Test
+    void topProductsSumsQuantityPerProduct() throws IOException {
+        Row r = single(OnlineRetail.topProducts(load(
+                line("536365", "85123A", "WHITE HANGING HEART T-LIGHT HOLDER", 6, 2.55, "17850"),
+                line("536366", "85123A", "WHITE HANGING HEART T-LIGHT HOLDER", 4, 2.55, "13047"),
+                line("536367", "85123A", "WHITE HANGING HEART T-LIGHT HOLDER", 2, 2.55, ""))));
+        assertEquals("85123A", r.getAs("StockCode"));
+        assertEquals(12L, (long) r.getAs("TotalQuantity"));
+    }
+
+    @Test
+    void topProductsReturnsFiveLargestDescending() throws IOException {
+        Dataset<Row> top = OnlineRetail.topProducts(load(
+                line("536365", "10001", "A", 1, 1.0, "17850"),
+                line("536365", "10002", "B", 6, 1.0, "17850"),
+                line("536365", "10003", "C", 3, 1.0, "17850"),
+                line("536365", "10004", "D", 5, 1.0, "17850"),
+                line("536365", "10005", "E", 2, 1.0, "17850"),
+                line("536365", "10006", "F", 4, 1.0, "17850")));
+        List<String> codes = top.select("StockCode").as(Encoders.STRING()).collectAsList();
+        assertEquals(List.of("10002", "10004", "10006", "10003", "10005"), codes);
+    }
+
+    @Test
+    void topProductsTakesMostFrequentDescription() throws IOException {
+        Row r = single(OnlineRetail.topProducts(load(
+                line("536365", "85123A", "WHITE HANGING HEART T-LIGHT HOLDER", 1, 2.55, "17850"),
+                line("536366", "85123A", "WHITE HANGING HEART T-LIGHT HOLDER", 1, 2.55, "17850"),
+                line("536367", "85123A", "CREAM HANGING HEART T-LIGHT HOLDER", 1, 2.55, "17850"))));
+        assertEquals("WHITE HANGING HEART T-LIGHT HOLDER", r.getAs("Description"));
+    }
+
+    @Test
+    void customerStatsCountsOrdersSpentAndAvgCheck() throws IOException {
+        Row r = single(OnlineRetail.customerStats(load(
+                line("536365", "10001", "A", 2, 1.5, "17850"),
+                line("536365", "10002", "B", 1, 3.0, "17850"),
+                line("536366", "10001", "A", 1, 4.0, "17850"))));
+        assertEquals(17850, (int) r.getAs("CustomerID"));
+        assertEquals(2L, (long) r.getAs("TotalOrders"));
+        assertEquals(10.0, (double) r.getAs("TotalSpent"), 1e-9);
+        assertEquals(5.0, (double) r.getAs("AvgCheck"), 1e-9);
+    }
+
+    @Test
+    void customerStatsRoundsToCents() throws IOException {
+        Row r = single(OnlineRetail.customerStats(load(
+                line("536365", "10001", "A", 3, 0.1, "17850"),
+                line("536366", "10001", "A", 3, 0.1, "17850"),
+                line("536367", "10001", "A", 4, 0.1, "17850"))));
+        assertEquals(1.0, (double) r.getAs("TotalSpent"), 1e-9);
+        assertEquals(0.33, (double) r.getAs("AvgCheck"), 1e-9);
+    }
+
+    @Test
+    void customerStatsSkipsRowsWithoutCustomer() throws IOException {
+        Row r = single(OnlineRetail.customerStats(load(
+                line("536365", "10001", "A", 1, 1.0, "17850"),
+                line("536366", "10001", "A", 5, 1.0, ""))));
+        assertEquals(17850, (int) r.getAs("CustomerID"));
+        assertEquals(1.0, (double) r.getAs("TotalSpent"), 1e-9);
+    }
+
+    @Test
+    void customerStatsOneRowPerCustomerSortedBySpent() throws IOException {
+        Dataset<Row> stats = OnlineRetail.customerStats(load(
+                line("536365", "10001", "A", 5, 1.0, "17850"),
+                line("536366", "10001", "A", 20, 1.0, "13047"),
+                line("536367", "10001", "A", 4, 1.0, "12583"),
+                line("536368", "10001", "A", 6, 1.0, "12583")));
+        List<Integer> customers = stats.select("CustomerID").as(Encoders.INT()).collectAsList();
+        assertEquals(List.of(13047, 12583, 17850), customers);
+    }
+
     Dataset<Row> load(String... rows) throws IOException {
         Path csv = dir.resolve("data.csv");
         String content = HEADER + "\r\n" + String.join("\r\n", rows) + "\r\n";
         Files.write(csv, content.getBytes(StandardCharsets.ISO_8859_1));
         return OnlineRetail.loadSales(spark, csv.toString());
+    }
+
+    static String line(String invoice, String stockCode, String description, int quantity, double price, String customer) {
+        return String.join(",", invoice, stockCode, description, String.valueOf(quantity),
+                "12/1/2010 8:26", String.valueOf(price), customer, "United Kingdom");
     }
 
     static Row single(Dataset<Row> ds) {

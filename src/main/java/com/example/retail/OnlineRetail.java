@@ -6,6 +6,8 @@ import org.apache.spark.sql.SparkSession;
 import org.apache.spark.sql.types.DataTypes;
 import org.apache.spark.sql.types.StructType;
 
+import static org.apache.spark.sql.functions.*;
+
 public class OnlineRetail {
 
     static final String INPUT_PATH = "/opt/spark-data/data.csv";
@@ -57,12 +59,24 @@ public class OnlineRetail {
 
     // Топ-5 товаров по общему количеству проданных единиц
     static Dataset<Row> topProducts(Dataset<Row> sales) {
-        throw new UnsupportedOperationException("TODO: topProducts");
+        return sales
+                .groupBy("StockCode")
+                .agg(mode(col("Description")).alias("Description"),
+                        sum("Quantity").alias("TotalQuantity"))
+                .orderBy(desc("TotalQuantity"))
+                .limit(5);
     }
 
     // По каждому клиенту: число заказов, общая сумма, средний чек
     static Dataset<Row> customerStats(Dataset<Row> sales) {
-        throw new UnsupportedOperationException("TODO: customerStats");
+        return sales
+                .filter(col("CustomerID").isNotNull())
+                .groupBy("CustomerID")
+                .agg(countDistinct("InvoiceNo").alias("TotalOrders"),
+                        sum(col("Quantity").multiply(col("UnitPrice"))).alias("TotalSpent"))
+                .withColumn("AvgCheck", round(col("TotalSpent").divide(col("TotalOrders")), 2))
+                .withColumn("TotalSpent", round(col("TotalSpent"), 2))
+                .orderBy(desc("TotalSpent"));
     }
 
     static void write(Dataset<Row> result, String name) {
